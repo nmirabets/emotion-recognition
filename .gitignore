@@ -1,3 +1,6 @@
+# Training image dataset
+data/fer-2013/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
