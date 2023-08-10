@@ -1,6 +1,12 @@
 # Training image dataset
 data/
 
+# Model files after training
+models/
+
+# Learner metr
+learner_metrics/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
