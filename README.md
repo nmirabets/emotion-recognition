@@ -10,7 +10,7 @@ The Facial Expression Recognition 2013 (FER-2013) dataset comprises grayscale im
 
 fast.ai is a deep learning library designed to make the process of training complex models as intuitive and streamlined as possible. With its high-level APIs and underlying robust mechanisms, it significantly reduces the learning curve for beginners, while offering granular control for experienced users. In this project, the library facilitated rapid prototyping, allowing us to experiment with a variety of architectures and techniques seamlessly.
 
-Model Selection and Performance
+### Model Selection and Performance
 
 Our development journey included testing multiple neural network architectures. Starting with simpler convolutional networks, we gradually moved to more intricate models, tweaking hyperparameters, and utilizing fast.ai's built-in functionalities like learning rate finders. After rigorous training and validation, we selected the best-performing model, ensuring a balance between accuracy and computational efficiency.
 
