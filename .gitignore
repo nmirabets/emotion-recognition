@@ -7,6 +7,12 @@ models/
 # Learner metr
 learner_metrics/
 
+# Confusion matrices
+confusion_matrices/
+
+# App resources
+app/resources/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

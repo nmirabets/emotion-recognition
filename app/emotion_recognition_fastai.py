@@ -11,7 +11,7 @@ def detect_faces(image):
 
     for (top, right, bottom, left) in face_locations:
         # Draw a rectangle around the face
-        cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)
+        cv2.rectangle(image, (left, top), (right, bottom), (255, 255, 255), 1)
 
     return image, face_locations  # Return both the modified image and face locations
 
@@ -53,6 +53,12 @@ class EmotionRecognition:
         emotion_probability = probs[predicted_index].item()
 
         return predicted_emotion, emotion_probability
+    
+    def load_image_from_path(self, image_path):
+        """
+        Load an image from the given path.
+        """
+        self.image = cv2.imread(image_path)
 
     def recognize(self):
 
@@ -78,6 +84,37 @@ class EmotionRecognition:
                     label = f"{predicted_emotion} {emotion_probability*100:.0f}%"
 
                     cv2.putText(frame_with_faces, label, (left, bottom + 20),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1, cv2.LINE_AA)
+                                cv2.FONT_HERSHEY_COMPLEX, 0.7, (0, 225, 225), 1, cv2.LINE_AA)
 
             return cv2.cvtColor(frame_with_faces, cv2.COLOR_BGR2RGB)
+        
+    def recognize_loaded_img(self):
+
+        self.load_image_from_path('/Users/nmirabets/Documents/data-science/repos/emotion-recognition/home_gathering.png')
+
+        if self.image is None:
+            raise ValueError("No image loaded. Please load an image using load_image_from_path method.")
+
+        frame = self.image
+
+        # Convert the frame from BGR to RGB
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Detect faces in the frame
+        frame_with_faces, face_locations = detect_faces(frame_rgb)
+
+        for (top, right, bottom, left) in face_locations:
+            # Crop the face region
+            face_image = frame_with_faces[top:bottom, left:right]
+
+            # Predict the emotion
+            predicted_emotion, emotion_probability = self.predict_emotion(face_image)
+
+            # Only display the emotion label and its probability if it's above the threshold
+            if emotion_probability > self.threshold:
+                label = f"{predicted_emotion} {emotion_probability*100:.0f}%"
+
+                cv2.putText(frame_with_faces, label, (left, bottom + 20),
+                            cv2.FONT_HERSHEY_COMPLEX, 0.7, (0, 230, 230), 1, cv2.LINE_AA)
+
+        return cv2.cvtColor(frame_with_faces, cv2.COLOR_BGR2RGB)
