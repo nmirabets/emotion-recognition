@@ -14,3 +14,6 @@ fast.ai is a deep learning library designed to make the process of training comp
 
 Our development journey included testing multiple neural network architectures. Starting with simpler convolutional networks, we gradually moved to more intricate models, tweaking hyperparameters, and utilizing fast.ai's built-in functionalities like learning rate finders. After rigorous training and validation, we selected the best-performing model, ensuring a balance between accuracy and computational efficiency.
 
+[Presentation Link](https://slides.com/nicolasmirabet/ers/fullscreen)
+
+
