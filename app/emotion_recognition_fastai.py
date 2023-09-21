@@ -1,19 +1,23 @@
 from fastai.vision.all import *
-import face_recognition
 import cv2
 
 def detect_faces(image):
-    # Load the image and convert it from BGR to RGB
-    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    # Initialize the Haar Cascade face detection model
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+    # Convert the image to grayscale (Haar cascades work better in grayscale)
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Find face locations in the image
-    face_locations = face_recognition.face_locations(rgb_image)
+    face_locations = face_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5)
 
-    for (top, right, bottom, left) in face_locations:
+    for (x, y, w, h) in face_locations:
         # Draw a rectangle around the face
-        cv2.rectangle(image, (left, top), (right, bottom), (255, 255, 255), 1)
+        cv2.rectangle(image, (x, y), (x+w, y+h), (255, 255, 255), 1)
 
-    return image, face_locations  # Return both the modified image and face locations
+    # Return the image and face locations in the format [(top, right, bottom, left)]
+    formatted_face_locations = [(y, x+w, y+h, x) for (x, y, w, h) in face_locations]
+    return image, formatted_face_locations
 
 class EmotionRecognition:
     
